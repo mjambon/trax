@@ -48,3 +48,7 @@ install:
 
 uninstall:
 	ocamlfind remove trax
+
+reinstall:
+	$(MAKE) uninstall || :
+	$(MAKE) install
