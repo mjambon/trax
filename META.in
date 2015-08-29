@@ -1,0 +1,5 @@
+name = "trax"
+description = "Stack-independent exception tracing"
+archive(byte)    = "trax.cmo"
+archive(native)  = "trax.cmx"
+archive(native,plugin)  = "trax.cmxs"

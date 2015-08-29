@@ -9,19 +9,21 @@ ifeq "${NATDYNLINK}" "YES"
 CMXS=trax.cmxs
 endif
 
-.PHONY: default all opt test doc soft-clean clean
+.PHONY: default all opt clean
 default: all opt
-all:
+all: trax.cmo
+
+trax.cmo: trax.ml
 	ocamlfind ocamlc -c trax.mli
 	ocamlfind ocamlc -c -dtypes trax.ml
 	touch bytecode
 
 opt: trax.cmx $(CMXS)
-	touch nativecode
 
 trax.cmx:
 	ocamlfind ocamlc -c trax.mli
 	ocamlfind ocamlopt -c -dtypes trax.ml
+	touch nativecode
 
 trax.cmxs: trax.cmx
 	ocamlfind ocamlopt -I . -shared -linkall -o trax.cmxs trax.cmx
@@ -34,7 +36,7 @@ BC_INSTALL_FILES = trax.cmo
 NC_INSTALL_FILES = trax.cmx trax.o $(CMXS)
 
 install:
-	echo "version = \"$(VERSION)\"" > META; cat META.tpl >> META
+	echo "version = \"$(VERSION)\"" > META; cat META.in >> META
 	INSTALL_FILES="$(COMMON_INSTALL_FILES)"; \
 		if test -f bytecode; then \
 		  INSTALL_FILES="$$INSTALL_FILES $(BC_INSTALL_FILES)"; \
