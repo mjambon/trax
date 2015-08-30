@@ -14,7 +14,7 @@ let unwrap = function
   | Traced (e, _) -> e
   | e -> e
 
-let wrap_with_backtrace e =
+let wrap_with_stack_trace e =
   wrap (Raw_backtrace (Printexc.get_raw_backtrace ())) e
 
 let raise_at loc e =
@@ -23,7 +23,7 @@ let raise_at loc e =
 let raise txt_loc e =
   raise_at (Text txt_loc) e
 
-let reraise_with_backtrace e =
+let reraise_with_stack_trace e =
   raise_at (Raw_backtrace (Printexc.get_raw_backtrace ())) e
 
 let add_loc buf loc =

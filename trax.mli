@@ -17,7 +17,7 @@ val unwrap : exn -> exn
   (** Recover the original exception, for inspection purposes.
       For instance [Traced(Not_found, [...])] would become [Not_found]. *)
 
-val wrap_with_backtrace : exn -> exn
+val wrap_with_stack_trace : exn -> exn
   (** Wrap an exception with the current exception backtrace
       (stack trace recorded at the point where
       the exception was raised, assuming no other exception was raised
@@ -31,7 +31,7 @@ val raise : string -> exn -> 'a
   (** Raise or reraise an exception after adding a text location
       to its trace. Typical usage is [Trax.raise __LOC__ e]. *)
 
-val reraise_with_backtrace : exn -> 'a
+val reraise_with_stack_trace : exn -> 'a
   (** Re-raise an exception after wrapping it with the current
       exception backtrace (stack trace recorded at the point where
       the exception was raised, assuming no other exception was raised
