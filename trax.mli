@@ -41,5 +41,8 @@ val reraise_with_stack_trace : exn -> 'a
 val to_string : exn -> string
   (** Format the exception and its trace into text. *)
 
+val get_trace : exn -> string
+  (** Format the trace into text *)
+
 val print : out_channel -> exn -> unit
   (** Print the exception and its trace. *)

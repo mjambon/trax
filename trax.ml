@@ -41,15 +41,22 @@ let add_loc buf loc =
         Buffer.add_char buf '\n';
         Buffer.add_substring buf s 0 n
 
-let to_string e =
+let to_string_aux with_exn e =
   match e with
   | Traced (e, locs) ->
       let buf = Buffer.create 500 in
-      bprintf buf "%s" (Printexc.to_string e);
+      if with_exn then
+        bprintf buf "%s" (Printexc.to_string e);
       List.iter (add_loc buf) (List.rev locs);
       Buffer.contents buf
   | e ->
-      Printexc.to_string e
+      if with_exn then
+        Printexc.to_string e
+      else
+        ""
+
+let to_string e = to_string_aux true e
+let get_trace e = to_string_aux false e
 
 let print oc e =
   output_string oc (to_string e)
