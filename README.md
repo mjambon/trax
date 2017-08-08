@@ -6,7 +6,7 @@ trace exceptions, i.e. give a list of source code locations
 through which an exception propagated.
 
 The traditional method consisting in recording the stack trace at the
-point where an exception is raised is not satfisfying. In particular
+point where an exception is raised is not satisfying. In particular
 it doesn't allow exceptions to be stored while other functions run
 and may themselves raise exceptions, resetting the stack trace. Some
 examples of what works and what doesn't work with stack traces
