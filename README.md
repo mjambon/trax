@@ -15,3 +15,32 @@ are given here: https://github.com/mjambon/backtrace
 Instead of relying on stack traces, Trax wraps the original exception
 within a special exception together with a trace, i.e. a list of
 source code locations.
+
+Sample usage
+------------
+
+```ocaml
+let foo x y z =
+  ...
+  (* some error occurred *)
+  Trax.raise __LOC__ (Failure "uh oh")
+
+let bar x y z =
+  try foo x y z
+  with e ->
+    (* inspect the exception; requires unwrapping *)
+    match Trax.unwrap e with
+    | Invalid_arg _ ->
+       assert false
+    | _ ->
+       (* re-raise the exception, adding the current location to the trace *)
+       Trax.raise __LOC__ e
+
+let main () =
+  try
+    ...
+    bar x y z
+    ...
+  with e ->
+    Trax.print stderr e
+```
