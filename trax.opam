@@ -5,7 +5,7 @@ homepage: "https://github.com/mjambon/trax"
 bug-reports: "https://github.com/mjambon/trax/issues"
 dev-repo: "https://github.com/mjambon/trax.git"
 build: [
-  ["jbuilder" "build" "-p" name "-j" jobs]
+  ["dune" "build" "-p" name "-j" jobs]
 ]
-depends: ["jbuilder" {build}]
+depends: ["dune" {build}]
 available: [ ocaml-version >= "4.01.0"]

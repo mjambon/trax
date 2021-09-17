@@ -1,7 +1,12 @@
+.PHONY: all
 all:
-	@jbuilder build @install @DEFAULT
+	dune build @install
 
-.PHONY: clean all
+.PHONY: test
+test:
+	dune build src/test/Test.exe
+	./_build/default/src/test/Test.exe
 
+.PHONY: clean
 clean:
-	jbuilder clean
+	dune clean

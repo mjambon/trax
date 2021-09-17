@@ -38,6 +38,12 @@ val reraise_with_stack_trace : exn -> 'a
       in-between). This is only guaranteed to work
       right after catching an exception with a try-with. *)
 
+val raw_backtrace_to_string : Printexc.raw_backtrace -> string
+  (** Convert a stack trace to readable lines. Duplicate lines are omitted
+      and replaced by '...' or similar.
+
+      This is a replacement for Printexc.raw_backtrace_to_string. *)
+
 val to_string : exn -> string
   (** Format the exception and its trace into text. *)
 
