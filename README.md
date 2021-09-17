@@ -1,4 +1,4 @@
-OCaml exception tracing
+OCaml exception tracing [![CircleCI badge](https://circleci.com/gh/mjambon/trax.svg?style=svg)](https://app.circleci.com/pipelines/github/mjambon/trax)
 =======================
 
 This small library allows a user or a preprocessor to reliably
