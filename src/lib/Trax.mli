@@ -1,3 +1,8 @@
+(**
+   Trax: library for creating custom execution traces beyond just a single
+   stack backtrace.
+*)
+
 (** The type of locations that make up the exception trace *)
 type location = Text of string
               | Raw_backtrace of Printexc.raw_backtrace
