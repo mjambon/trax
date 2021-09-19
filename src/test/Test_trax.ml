@@ -1,5 +1,8 @@
 (*
    Unit tests for Trax
+
+   There are not too many tests because we can't guarantee that
+   stack backtraces won't change from one version of ocaml to another.
 *)
 
 let rec grow_stack n =
@@ -19,6 +22,21 @@ let test_deduplicate_trace () =
   | [] -> Alcotest.fail "no matches, should have found one"
   | _ -> Alcotest.fail "multiple matches, should have found one"
 
+let test_manual_trace () =
+  try
+    Trax.raise "location 1" (Failure "uh oh")
+  with e ->
+    try
+      Trax.raise "location 2" e
+    with e ->
+      let expected = "\
+Failure(\"uh oh\")
+location 1
+location 2"
+      in
+      Alcotest.(check string) "equal" expected (Trax.to_string e)
+
 let tests = [
-  "deduplicate_trace", `Quick, test_deduplicate_trace;
+  "deduplicate trace", `Quick, test_deduplicate_trace;
+  "manual trace", `Quick, test_manual_trace;
 ]
